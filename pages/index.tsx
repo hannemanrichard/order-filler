@@ -274,6 +274,7 @@ const Home: NextPage = () => {
                 <th>Order number</th>
                 <th>Product</th>
                 <th>Total price</th>
+                <th>Free shipping</th>
               </tr>
             </thead>
             <tbody>
@@ -288,8 +289,9 @@ const Home: NextPage = () => {
                   <td>{order.wilaya}</td>
                   <td>{order.isStopdesk && order.agency}</td>
                   <td>{Math.floor(Math.random() * 1000)}</td>
-                  <td></td>
+                  <td>x</td>
                   <td>{order.totalPrice}</td>
+                  <td>OUI</td>
                 </tr>
               ))}
             </tbody>
