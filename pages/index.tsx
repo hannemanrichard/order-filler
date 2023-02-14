@@ -9,6 +9,18 @@ import { communesStopdesk } from "../data/communesStopdesk";
 import { fees } from "../data/fees";
 import { agencies } from "../data/agencies";
 import supabase from "../supabaseClient";
+
+const statusColors = {
+  initial: "info",
+  canceled: "danger",
+  confirmed: "success",
+  "not-responding": "warning",
+  unreachable: "warning",
+  busy: "warning",
+  reported: "secondary",
+  other: "secondary",
+};
+
 const Home: NextPage = () => {
   const [leads, setLeads] = useState<any>([]);
   const [leadsCsv, setLeadsCsv] = useState<any>([]);
@@ -98,7 +110,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     const fetchLeads = async () => {
       try {
-        const { data, error } = await supabase.from("fb-lead").select("*");
+        const { data, error } = await supabase
+          .from("fb-lead")
+          .select("*")
+          .order("created_time", { ascending: false });
 
         if (data) {
           console.log("the data: ", data);
@@ -493,7 +508,9 @@ const Home: NextPage = () => {
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Wilaya</th>
+                <th>Created at</th>
                 <th>status</th>
+                <th>comment</th>
                 <th>Edit</th>
               </tr>
             </thead>
@@ -506,7 +523,11 @@ const Home: NextPage = () => {
                   <td>{order.phone}</td>
                   <td>{order.address}</td>
                   <td>{order.wilaya_in}</td>
+                  <td>
+                    {order.created_time.replace("T", " ").replace("+01:00", "")}
+                  </td>
                   <td>{order.status}</td>
+                  <td>{order.comment && order.comment}</td>
                   <td>
                     <button
                       onClick={() => {
