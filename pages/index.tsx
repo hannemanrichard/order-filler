@@ -11,14 +11,14 @@ import { agencies } from "../data/agencies";
 import supabase from "../supabaseClient";
 
 const statusColors = {
-  initial: "info",
-  canceled: "danger",
-  confirmed: "success",
-  "not-responding": "warning",
-  unreachable: "warning",
-  busy: "warning",
-  reported: "secondary",
-  other: "secondary",
+  initial: "badge-ghost",
+  canceled: "badge-secondary",
+  confirmed: "badge-accent",
+  "not-responding": "",
+  unreachable: "",
+  busy: "",
+  reported: "badge-primary",
+  other: "",
 };
 
 const Home: NextPage = () => {
@@ -526,7 +526,13 @@ const Home: NextPage = () => {
                   <td>
                     {order.created_time.replace("T", " ").replace("+01:00", "")}
                   </td>
-                  <td>{order.status}</td>
+                  <td>
+                    <div
+                      className={`badge badge-lg ${statusColors[order.status]}`}
+                    >
+                      {order.status}
+                    </div>
+                  </td>
                   <td>{order.comment && order.comment}</td>
                   <td>
                     <button
