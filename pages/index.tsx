@@ -11,14 +11,14 @@ import { agencies } from "../data/agencies";
 import supabase from "../supabaseClient";
 
 const statusColors = {
-  initial: "badge-ghost",
-  canceled: "badge-secondary",
-  confirmed: "badge-accent",
-  "not-responding": "",
-  unreachable: "",
-  busy: "",
-  reported: "badge-primary",
-  other: "",
+  initial: "bg-neutral-600",
+  canceled: "bg-red-600",
+  confirmed: "bg-green-600",
+  "not-responding": "bg-yellow-600",
+  unreachable: "bg-amber-600",
+  busy: "bg-yellow-600",
+  reported: "bg-violet-600",
+  other: "bg-indigo-600",
 };
 
 const Home: NextPage = () => {
@@ -528,7 +528,9 @@ const Home: NextPage = () => {
                   </td>
                   <td>
                     <div
-                      className={`badge badge-lg ${statusColors[order.status]}`}
+                      className={`badge badge-lg border-0 text-white ${
+                        statusColors[order.status]
+                      }`}
                     >
                       {order.status}
                     </div>
